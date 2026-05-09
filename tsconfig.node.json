@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "lib": ["ES2022"],
+    "types": ["electron-vite/node", "node"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "baseUrl": ".",
+    "paths": {
+      "@main/*": ["src/main/*"],
+      "@shared/*": ["src/shared/*"]
+    }
+  },
+  "include": [
+    "electron.vite.config.*",
+    "src/main/**/*",
+    "src/preload/**/*",
+    "src/shared/**/*"
+  ]
+}
