@@ -151,7 +151,7 @@ export function ProfileDialog({
       }
     >
       <Tabs.Root defaultValue="general" className="flex flex-col gap-4">
-        <Tabs.List className="flex gap-1 border-b border-slate-200">
+        <Tabs.List className="flex gap-1 border-b border-ink-200">
           <TabTrigger value="general">General</TabTrigger>
           <TabTrigger value="fingerprint">Fingerprint</TabTrigger>
           <TabTrigger value="proxy">Proxy</TabTrigger>
@@ -203,7 +203,7 @@ export function ProfileDialog({
 
         <Tabs.Content value="fingerprint" className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-ink-500">
               Each profile gets a unique browser fingerprint. Click <strong>Re-roll</strong> to
               generate a new one for the chosen OS / locale.
             </p>
@@ -440,21 +440,21 @@ export function ProfileDialog({
           )}
         </Tabs.Content>
 
-        <Tabs.Content value="advanced" className="space-y-3 text-sm text-slate-600">
+        <Tabs.Content value="advanced" className="space-y-3 text-sm text-ink-600">
           <p>
             Profile data folder will be created at the platform-default user data directory once
             the profile is saved.
           </p>
           <p>
             Cookies, localStorage, IndexedDB, and the password store are isolated per profile via
-            Chrome's <code className="rounded bg-slate-100 px-1">--user-data-dir</code> flag.
+            Chrome's <code className="rounded bg-ink-100 px-1">--user-data-dir</code> flag.
           </p>
           <p>
             Fingerprint spoofing is injected via CDP{' '}
-            <code className="rounded bg-slate-100 px-1">Page.addScriptToEvaluateOnNewDocument</code>{' '}
+            <code className="rounded bg-ink-100 px-1">Page.addScriptToEvaluateOnNewDocument</code>{' '}
             before any page script runs.
           </p>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-ink-500">
             Note: this clone uses the system Chromium with a JavaScript injection layer. Real
             AdsPower ships its own forked Chromium ("SunBrowser") with C++ patches to the rendering
             engine, which provides stronger detection resistance for sites that fingerprint at the
@@ -476,7 +476,7 @@ function TabTrigger({
   return (
     <Tabs.Trigger
       value={value}
-      className="border-b-2 border-transparent px-3 py-2 text-sm text-slate-500 data-[state=active]:border-brand-600 data-[state=active]:text-brand-700 data-[state=active]:font-medium"
+      className="border-b-2 border-transparent px-3 py-2 text-sm text-ink-500 data-[state=active]:border-brand-600 data-[state=active]:text-brand-700 data-[state=active]:font-medium"
     >
       {children}
     </Tabs.Trigger>

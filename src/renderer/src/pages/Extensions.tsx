@@ -29,7 +29,7 @@ export function ExtensionsPage(): JSX.Element {
   return (
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-sm text-slate-500">{extensions.length} extensions</div>
+        <div className="text-sm text-ink-500">{extensions.length} extensions</div>
         <button className="btn-primary" onClick={() => void add()}>
           <Plus className="h-4 w-4" />
           Add unpacked extension
@@ -51,7 +51,7 @@ export function ExtensionsPage(): JSX.Element {
       ) : (
         <div className="card overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="border-b border-slate-200 bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
+            <thead className="border-b border-ink-200 bg-ink-50 text-left text-xs uppercase tracking-wide text-ink-500">
               <tr>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Version</th>
@@ -62,10 +62,10 @@ export function ExtensionsPage(): JSX.Element {
             </thead>
             <tbody>
               {extensions.map((e) => (
-                <tr key={e.id} className="border-b border-slate-100 hover:bg-slate-50">
-                  <td className="px-4 py-2 font-medium text-slate-800">{e.name}</td>
-                  <td className="px-4 py-2 text-slate-600">{e.version}</td>
-                  <td className="px-4 py-2 truncate font-mono text-xs text-slate-500">{e.path}</td>
+                <tr key={e.id} className="border-b border-ink-100 hover:bg-ink-50">
+                  <td className="px-4 py-2 font-medium text-ink-800">{e.name}</td>
+                  <td className="px-4 py-2 text-ink-600">{e.version}</td>
+                  <td className="px-4 py-2 truncate font-mono text-xs text-ink-500">{e.path}</td>
                   <td className="px-4 py-2">
                     <label className="inline-flex items-center gap-2">
                       <input

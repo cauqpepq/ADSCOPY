@@ -28,12 +28,12 @@ export function SettingsPage(): JSX.Element {
     setSaving(false)
   }
 
-  if (!draft) return <div className="p-6 text-slate-400">Loading…</div>
+  if (!draft) return <div className="p-6 text-ink-400">Loading…</div>
 
   return (
     <div className="max-w-3xl p-6">
       <section className="card mb-4 p-5">
-        <h3 className="mb-3 text-sm font-semibold text-slate-700">Browser binary</h3>
+        <h3 className="mb-3 text-sm font-semibold text-ink-700">Browser binary</h3>
         <div className="space-y-3">
           <div>
             <div className="label">Chrome / Chromium path (leave empty for auto-detect)</div>
@@ -48,14 +48,14 @@ export function SettingsPage(): JSX.Element {
                 Detect
               </button>
             </div>
-            {detected && <p className="mt-1 text-xs text-slate-500">Detected: {detected}</p>}
+            {detected && <p className="mt-1 text-xs text-ink-500">Detected: {detected}</p>}
           </div>
         </div>
       </section>
 
       <section className="card mb-4 p-5">
-        <h3 className="mb-3 text-sm font-semibold text-slate-700">Local API</h3>
-        <p className="mb-3 text-xs text-slate-500">
+        <h3 className="mb-3 text-sm font-semibold text-ink-700">Local API</h3>
+        <p className="mb-3 text-xs text-ink-500">
           Exposes a local HTTP server (similar to AdsPower's <code>local-api.adspower.net</code>)
           for programmatic control. Set port to <code>0</code> to disable.
         </p>
@@ -71,7 +71,7 @@ export function SettingsPage(): JSX.Element {
       </section>
 
       <section className="card mb-4 p-5">
-        <h3 className="mb-3 text-sm font-semibold text-slate-700">Appearance</h3>
+        <h3 className="mb-3 text-sm font-semibold text-ink-700">Appearance</h3>
         <div className="grid grid-cols-2 gap-3">
           <div>
             <div className="label">Theme</div>

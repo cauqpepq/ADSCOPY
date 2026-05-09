@@ -30,19 +30,20 @@ export function FolderTree(): JSX.Element {
   }
 
   return (
-    <div className="w-56 shrink-0 border-r border-slate-200 bg-white">
-      <div className="flex items-center justify-between border-b border-slate-200 px-3 py-2">
-        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Folders</span>
+    <div className="flex w-56 shrink-0 flex-col border-r border-ink-200 bg-white">
+      <div className="flex items-center justify-between border-b border-ink-200 px-3 py-2.5">
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-500">Folders</span>
         <button
-          className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          className="rounded p-1 text-ink-400 hover:bg-ink-100 hover:text-ink-700"
           onClick={() => setCreating((v) => !v)}
+          title="New folder"
         >
           <Plus className="h-4 w-4" />
         </button>
       </div>
 
       {creating && (
-        <div className="flex gap-1 border-b border-slate-200 p-2">
+        <div className="flex gap-1 border-b border-ink-200 p-2">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -57,21 +58,13 @@ export function FolderTree(): JSX.Element {
         </div>
       )}
 
-      <div className="overflow-auto py-1">
+      <div className="flex-1 overflow-auto py-1">
         <FolderRow
-          icon={<Folder className="h-4 w-4 text-slate-400" />}
+          icon={<Folder className="h-4 w-4 text-brand-500" />}
           label="All profiles"
           count={profiles.length}
           active={selected === null}
           onClick={() => setSelected(null)}
-        />
-        <FolderRow
-          icon={<Folder className="h-4 w-4 text-slate-400" />}
-          label="No folder"
-          count={profileCount(null)}
-          active={false}
-          onClick={() => setSelected(null)}
-          subtle
         />
         {folders.map((f) => (
           <FolderRow
@@ -110,9 +103,11 @@ function FolderRow({
     <div
       onClick={onClick}
       className={cn(
-        'group flex cursor-pointer items-center justify-between px-3 py-1.5 text-sm transition',
-        active ? 'bg-brand-50 text-brand-700 font-medium' : 'text-slate-700 hover:bg-slate-50',
-        subtle && 'text-slate-400'
+        'group mx-1.5 flex cursor-pointer items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition',
+        active
+          ? 'bg-brand-50 text-brand-700 font-medium'
+          : 'text-ink-700 hover:bg-ink-50 hover:text-ink-900',
+        subtle && 'text-ink-400'
       )}
     >
       <div className="flex items-center gap-2">
@@ -120,14 +115,21 @@ function FolderRow({
         <span className="truncate">{label}</span>
       </div>
       <div className="flex items-center gap-1">
-        <span className="text-[11px] text-slate-400">{count}</span>
+        <span
+          className={cn(
+            'text-[11px]',
+            active ? 'text-brand-600' : 'text-ink-400'
+          )}
+        >
+          {count}
+        </span>
         {onDelete && (
           <button
             onClick={(e) => {
               e.stopPropagation()
               onDelete()
             }}
-            className="hidden rounded p-0.5 text-slate-300 hover:bg-rose-50 hover:text-rose-500 group-hover:block"
+            className="hidden rounded p-0.5 text-ink-300 hover:bg-rose-50 hover:text-rose-500 group-hover:block"
           >
             <Trash2 className="h-3 w-3" />
           </button>

@@ -60,7 +60,7 @@ export function ProxiesPage(): JSX.Element {
   return (
     <div className="p-6">
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-sm text-slate-500">{proxies.length} proxies</div>
+        <div className="text-sm text-ink-500">{proxies.length} proxies</div>
         <div className="flex gap-2">
           <button className="btn-secondary" onClick={() => setBulkOpen(true)}>
             Bulk import
@@ -87,8 +87,8 @@ export function ProxiesPage(): JSX.Element {
       ) : (
         <div className="card overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="border-b border-slate-200 bg-slate-50">
-              <tr className="text-left text-xs font-medium uppercase tracking-wide text-slate-500">
+            <thead className="border-b border-ink-200 bg-ink-50">
+              <tr className="text-left text-xs font-medium uppercase tracking-wide text-ink-500">
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Type</th>
                 <th className="px-4 py-2">Endpoint</th>
@@ -101,18 +101,18 @@ export function ProxiesPage(): JSX.Element {
               {proxies.map((p) => {
                 const r = results[p.id!]
                 return (
-                  <tr key={p.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-2 font-medium text-slate-800">
-                      {p.name ?? <span className="text-slate-400">(no name)</span>}
+                  <tr key={p.id} className="border-b border-ink-100 hover:bg-ink-50">
+                    <td className="px-4 py-2 font-medium text-ink-800">
+                      {p.name ?? <span className="text-ink-400">(no name)</span>}
                     </td>
                     <td className="px-4 py-2 uppercase">{p.type}</td>
                     <td className="px-4 py-2 font-mono text-xs">
                       {p.host}:{p.port}
                     </td>
-                    <td className="px-4 py-2 text-slate-500">{p.username || '—'}</td>
+                    <td className="px-4 py-2 text-ink-500">{p.username || '—'}</td>
                     <td className="px-4 py-2 text-xs">
                       {testing[p.id!] ? (
-                        <span className="inline-flex items-center gap-1 text-slate-500">
+                        <span className="inline-flex items-center gap-1 text-ink-500">
                           <Loader2 className="h-3 w-3 animate-spin" />
                           Testing…
                         </span>
@@ -126,7 +126,7 @@ export function ProxiesPage(): JSX.Element {
                           <span className="text-rose-600">{r.error}</span>
                         )
                       ) : (
-                        <span className="text-slate-400">—</span>
+                        <span className="text-ink-400">—</span>
                       )}
                     </td>
                     <td className="px-4 py-2 text-right">

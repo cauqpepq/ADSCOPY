@@ -5,21 +5,44 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#eff8ff',
-          100: '#dceffd',
-          200: '#b1dffb',
-          300: '#7dc6f8',
-          400: '#42a8f0',
-          500: '#1a88dc',
-          600: '#0e6cba',
-          700: '#0d5897',
-          800: '#10497c',
-          900: '#143e67',
-          950: '#0d2843'
+          50: '#edf2ff',
+          100: '#dbe4ff',
+          200: '#bac8ff',
+          300: '#91a7ff',
+          400: '#748ffc',
+          500: '#5c7cfa',
+          600: '#4263eb',
+          700: '#364fc7',
+          800: '#2c3e9e',
+          900: '#243280',
+          950: '#1a2454'
+        },
+        ink: {
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
+          300: '#cbd5e1',
+          400: '#94a3b8',
+          500: '#64748b',
+          600: '#475569',
+          700: '#334155',
+          800: '#1e293b',
+          900: '#0f172a'
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif']
+        sans: [
+          'Inter',
+          'PingFang SC',
+          'Microsoft YaHei',
+          'Hiragino Sans GB',
+          'system-ui',
+          'sans-serif'
+        ]
+      },
+      boxShadow: {
+        soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.04)',
+        card: '0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04)'
       }
     }
   },

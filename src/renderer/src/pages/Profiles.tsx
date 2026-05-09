@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, FileUp, FileDown, Globe } from 'lucide-react'
+import { Plus, FileUp, FileDown, Globe, RefreshCw, Sparkles } from 'lucide-react'
 import { useStore } from '../store'
 import { FolderTree } from '../components/FolderTree'
 import { ProfileTable } from '../components/ProfileTable'
@@ -11,6 +11,8 @@ import type { BrowserProfile } from '@shared/types'
 export function ProfilesPage(): JSX.Element {
   const profiles = useStore((s) => s.profiles)
   const refreshProfiles = useStore((s) => s.refreshProfiles)
+  const selectedFolderId = useStore((s) => s.selectedFolderId)
+  const folders = useStore((s) => s.folders)
   const [editing, setEditing] = useState<BrowserProfile | null>(null)
   const [creating, setCreating] = useState(false)
   const [importingFor, setImportingFor] = useState<BrowserProfile | null>(null)
@@ -18,6 +20,12 @@ export function ProfilesPage(): JSX.Element {
   const [exportingFor, setExportingFor] = useState<BrowserProfile | null>(null)
   const [exportContent, setExportContent] = useState('')
   const [exportFormat, setExportFormat] = useState<'json' | 'netscape'>('json')
+
+  const folderName =
+    selectedFolderId === null ? 'All profiles' : folders.find((f) => f.id === selectedFolderId)?.name ?? '—'
+
+  const visibleCount = profiles.filter((p) => !selectedFolderId || p.folderId === selectedFolderId).length
+  const runningCount = profiles.filter((p) => p.status === 'running').length
 
   const doImport = async (): Promise<void> => {
     if (!importingFor) return
@@ -38,41 +46,60 @@ export function ProfilesPage(): JSX.Element {
   return (
     <div className="flex h-full">
       <FolderTree />
-      <div className="flex-1 overflow-auto p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-slate-500">
-            <span>{profiles.length} profiles</span>
-          </div>
-          <div className="flex gap-2">
-            <button className="btn-primary" onClick={() => setCreating(true)}>
-              <Plus className="h-4 w-4" />
-              New profile
-            </button>
+      <div className="flex-1 overflow-auto">
+        <div className="border-b border-ink-200 bg-white px-6 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <h2 className="text-sm font-semibold text-ink-800">{folderName}</h2>
+              <div className="flex items-center gap-2 text-xs text-ink-500">
+                <span className="pill bg-ink-100 text-ink-600">{visibleCount} total</span>
+                {runningCount > 0 && (
+                  <span className="pill bg-emerald-50 text-emerald-700">
+                    {runningCount} running
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                className="icon-btn"
+                title="Refresh"
+                onClick={() => void refreshProfiles()}
+              >
+                <RefreshCw className="h-4 w-4" />
+              </button>
+              <button className="btn-primary" onClick={() => setCreating(true)}>
+                <Plus className="h-4 w-4" />
+                New profile
+              </button>
+            </div>
           </div>
         </div>
 
-        {profiles.length === 0 ? (
-          <EmptyState
-            icon={Globe}
-            title="No browser profiles yet"
-            description="Create your first profile to launch an isolated Chromium session with a unique fingerprint."
-            action={
-              <button className="btn-primary" onClick={() => setCreating(true)}>
-                <Plus className="h-4 w-4" />
-                Create profile
-              </button>
-            }
-          />
-        ) : (
-          <ProfileTable
-            onEdit={(p) => setEditing(p)}
-            onImportCookies={(p) => {
-              setImportingFor(p)
-              setImportRaw('')
-            }}
-            onExportCookies={(p) => void openExport(p, 'json')}
-          />
-        )}
+        <div className="p-6">
+          {profiles.length === 0 ? (
+            <EmptyState
+              icon={Globe}
+              title="No browser profiles yet"
+              description="Create your first profile to launch an isolated Chromium session with a unique fingerprint."
+              action={
+                <button className="btn-primary" onClick={() => setCreating(true)}>
+                  <Sparkles className="h-4 w-4" />
+                  Create your first profile
+                </button>
+              }
+            />
+          ) : (
+            <ProfileTable
+              onEdit={(p) => setEditing(p)}
+              onImportCookies={(p) => {
+                setImportingFor(p)
+                setImportRaw('')
+              }}
+              onExportCookies={(p) => void openExport(p, 'json')}
+            />
+          )}
+        </div>
 
         <ProfileDialog
           open={creating || !!editing}
