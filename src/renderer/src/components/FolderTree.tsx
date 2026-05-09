@@ -1,11 +1,13 @@
 import { Folder, Plus, Trash2 } from 'lucide-react'
 import { useStore } from '../store'
 import { cn } from '../lib/utils'
+import { useT } from '../i18n'
 import { useState } from 'react'
 
 export function FolderTree(): JSX.Element {
   const folders = useStore((s) => s.folders)
   const selected = useStore((s) => s.selectedFolderId)
+  const tx = useT()
   const setSelected = useStore((s) => s.setSelectedFolderId)
   const refreshFolders = useStore((s) => s.refreshFolders)
   const profiles = useStore((s) => s.profiles)
@@ -30,11 +32,11 @@ export function FolderTree(): JSX.Element {
   }
 
   return (
-    <div className="flex w-56 shrink-0 flex-col border-r border-ink-200 bg-white">
-      <div className="flex items-center justify-between border-b border-ink-200 px-3 py-2.5">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-500">Folders</span>
+    <div className="flex w-56 shrink-0 flex-col border-r border-line surface">
+      <div className="flex items-center justify-between border-b border-line px-3 py-2.5">
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-base-mute">Folders</span>
         <button
-          className="rounded p-1 text-ink-400 hover:bg-ink-100 hover:text-ink-700"
+          className="rounded p-1 text-ink-400 hover:bg-ink-100 hover:text-ink-700 dark:text-ink-500 dark:hover:bg-ink-800 dark:hover:text-ink-200"
           onClick={() => setCreating((v) => !v)}
           title="New folder"
         >
@@ -43,7 +45,7 @@ export function FolderTree(): JSX.Element {
       </div>
 
       {creating && (
-        <div className="flex gap-1 border-b border-ink-200 p-2">
+        <div className="flex gap-1 border-b border-line p-2">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -61,7 +63,7 @@ export function FolderTree(): JSX.Element {
       <div className="flex-1 overflow-auto py-1">
         <FolderRow
           icon={<Folder className="h-4 w-4 text-brand-500" />}
-          label="All profiles"
+          label={tx('profiles.allProfiles')}
           count={profiles.length}
           active={selected === null}
           onClick={() => setSelected(null)}
@@ -105,9 +107,9 @@ function FolderRow({
       className={cn(
         'group mx-1.5 flex cursor-pointer items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition',
         active
-          ? 'bg-brand-50 text-brand-700 font-medium'
-          : 'text-ink-700 hover:bg-ink-50 hover:text-ink-900',
-        subtle && 'text-ink-400'
+          ? 'bg-brand-50 text-brand-700 font-medium dark:bg-brand-900/40 dark:text-brand-200'
+          : 'text-ink-700 hover:bg-ink-50 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-ink-100',
+        subtle && 'text-ink-400 dark:text-ink-500'
       )}
     >
       <div className="flex items-center gap-2">
@@ -118,7 +120,9 @@ function FolderRow({
         <span
           className={cn(
             'text-[11px]',
-            active ? 'text-brand-600' : 'text-ink-400'
+            active
+              ? 'text-brand-600 dark:text-brand-300'
+              : 'text-ink-400 dark:text-ink-500'
           )}
         >
           {count}
@@ -129,7 +133,7 @@ function FolderRow({
               e.stopPropagation()
               onDelete()
             }}
-            className="hidden rounded p-0.5 text-ink-300 hover:bg-rose-50 hover:text-rose-500 group-hover:block"
+            className="hidden rounded p-0.5 text-ink-300 hover:bg-rose-50 hover:text-rose-500 dark:text-ink-600 dark:hover:bg-rose-900/30 group-hover:block"
           >
             <Trash2 className="h-3 w-3" />
           </button>

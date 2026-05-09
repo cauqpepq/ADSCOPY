@@ -20,6 +20,11 @@ body {
   color: #0f172a;
 }
 
+.dark body {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -30,6 +35,12 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(15, 23, 42, 0.32);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -43,27 +54,45 @@ body {
     @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-sm;
   }
   .btn-secondary {
-    @apply btn bg-white border border-ink-200 text-ink-700 hover:bg-ink-50 hover:border-ink-300;
+    @apply btn bg-white border border-ink-200 text-ink-700 hover:bg-ink-50 hover:border-ink-300 dark:bg-ink-800 dark:border-ink-700 dark:text-ink-200 dark:hover:bg-ink-700;
   }
   .btn-ghost {
-    @apply btn text-ink-600 hover:bg-ink-100;
+    @apply btn text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800;
   }
   .btn-danger {
-    @apply btn bg-rose-50 text-rose-700 hover:bg-rose-100;
+    @apply btn bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50;
   }
   .input {
-    @apply block w-full rounded-md border border-ink-200 bg-white px-3 py-1.5 text-sm placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100;
+    @apply block w-full rounded-md border border-ink-200 bg-white px-3 py-1.5 text-sm placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100 dark:placeholder:text-ink-500 dark:focus:ring-brand-900/40;
   }
   .label {
-    @apply block text-xs font-medium text-ink-600 mb-1;
+    @apply block text-xs font-medium text-ink-600 mb-1 dark:text-ink-400;
   }
   .card {
-    @apply bg-white border border-ink-200 rounded-lg shadow-soft;
+    @apply bg-white border border-ink-200 rounded-lg shadow-soft dark:bg-ink-900 dark:border-ink-800;
   }
   .pill {
     @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
   }
   .icon-btn {
-    @apply inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-500 hover:bg-ink-100 hover:text-ink-700 transition;
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-500 hover:bg-ink-100 hover:text-ink-700 transition dark:text-ink-400 dark:hover:bg-ink-800 dark:hover:text-ink-200;
+  }
+  .surface {
+    @apply bg-white dark:bg-ink-900;
+  }
+  .surface-2 {
+    @apply bg-ink-50 dark:bg-ink-950;
+  }
+  .border-line {
+    @apply border-ink-200 dark:border-ink-800;
+  }
+  .text-base-strong {
+    @apply text-ink-800 dark:text-ink-100;
+  }
+  .text-base-soft {
+    @apply text-ink-600 dark:text-ink-400;
+  }
+  .text-base-mute {
+    @apply text-ink-500 dark:text-ink-500;
   }
 }

@@ -10,7 +10,20 @@ import type {
   ProxyConfig
 } from '@shared/types'
 
-type Page = 'profiles' | 'proxies' | 'extensions' | 'automation' | 'team' | 'settings'
+export type Page =
+  | 'profiles'
+  | 'groups'
+  | 'application-center'
+  | 'rpa'
+  | 'proxies'
+  | 'api'
+  | 'sync'
+  | 'statistics'
+  | 'team'
+  | 'settings'
+
+export type Theme = 'light' | 'dark'
+export type Lang = 'en' | 'ru' | 'zh'
 
 interface AppState {
   page: Page
@@ -27,6 +40,16 @@ interface AppState {
   selectedFolderId: string | null
   search: string
 
+  selectedProfileIds: Set<string>
+  toggleProfileSelection: (id: string) => void
+  setProfileSelection: (ids: string[]) => void
+  clearProfileSelection: () => void
+
+  theme: Theme
+  setTheme: (t: Theme) => void
+  lang: Lang
+  setLang: (l: Lang) => void
+
   refreshAll: () => Promise<void>
   refreshProfiles: () => Promise<void>
   refreshFolders: () => Promise<void>
@@ -41,9 +64,30 @@ interface AppState {
   setSearch: (s: string) => void
 }
 
+const STORAGE_KEYS = {
+  theme: 'apc.theme',
+  lang: 'apc.lang'
+} as const
+
+const initialTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'light'
+  const saved = window.localStorage.getItem(STORAGE_KEYS.theme)
+  return saved === 'dark' ? 'dark' : 'light'
+}
+
+const initialLang = (): Lang => {
+  if (typeof window === 'undefined') return 'en'
+  const saved = window.localStorage.getItem(STORAGE_KEYS.lang)
+  if (saved === 'ru' || saved === 'zh' || saved === 'en') return saved
+  const nav = window.navigator.language.toLowerCase()
+  if (nav.startsWith('ru')) return 'ru'
+  if (nav.startsWith('zh')) return 'zh'
+  return 'en'
+}
+
 export const useStore = create<AppState>((set, get) => ({
   page: 'profiles',
-  setPage: (p) => set({ page: p }),
+  setPage: (p) => set({ page: p, selectedProfileIds: new Set() }),
 
   profiles: [],
   folders: [],
@@ -56,7 +100,32 @@ export const useStore = create<AppState>((set, get) => ({
   selectedFolderId: null,
   search: '',
 
-  setSelectedFolderId: (id) => set({ selectedFolderId: id }),
+  selectedProfileIds: new Set<string>(),
+  toggleProfileSelection: (id) =>
+    set((s) => {
+      const next = new Set(s.selectedProfileIds)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return { selectedProfileIds: next }
+    }),
+  setProfileSelection: (ids) => set({ selectedProfileIds: new Set(ids) }),
+  clearProfileSelection: () => set({ selectedProfileIds: new Set() }),
+
+  theme: initialTheme(),
+  setTheme: (t) => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(STORAGE_KEYS.theme, t)
+      document.documentElement.classList.toggle('dark', t === 'dark')
+    }
+    set({ theme: t })
+  },
+  lang: initialLang(),
+  setLang: (l) => {
+    if (typeof window !== 'undefined') window.localStorage.setItem(STORAGE_KEYS.lang, l)
+    set({ lang: l })
+  },
+
+  setSelectedFolderId: (id) => set({ selectedFolderId: id, selectedProfileIds: new Set() }),
   setSearch: (s) => set({ search: s }),
 
   refreshAll: async () => {

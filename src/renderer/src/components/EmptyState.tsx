@@ -13,11 +13,11 @@ export function EmptyState({
 }): JSX.Element {
   return (
     <div className="flex flex-1 flex-col items-center justify-center py-20 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300">
         <Icon className="h-8 w-8" />
       </div>
-      <h3 className="mt-4 text-lg font-semibold text-ink-700">{title}</h3>
-      {description && <p className="mt-1 max-w-md text-sm text-ink-500">{description}</p>}
+      <h3 className="mt-4 text-lg font-semibold text-base-strong">{title}</h3>
+      {description && <p className="mt-1 max-w-md text-sm text-base-mute">{description}</p>}
       {action && <div className="mt-6">{action}</div>}
     </div>
   )
